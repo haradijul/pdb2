@@ -38,16 +38,16 @@ public class WordCount {
                        ) throws IOException, InterruptedException {
       // int sum = 0;
       int count = 0;
-      BigInteger sum = BigInteger.valueOf(0);
+      double rol_avg = 0.0;
       for (IntWritable val : values) {
         // sum += val.get();
-        sum.add(BigInteger.valueOf(val.get()));
+        // sum.add(BigInteger.valueOf(val.get()));
         count = count+1;
+        rol_avg += (val.get() - rol_avg)/(count);
       }
       // result.set(count);
       // result.set(sum.divide(BigInteger.valueOf(count)).intValue());
-      result.set(sum.intValue());
-      // context.write(key, new IntWritable(count));
+      result.set(rol_avg);
       context.write(key, result);
     }
   }

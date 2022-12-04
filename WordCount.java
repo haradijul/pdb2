@@ -36,19 +36,18 @@ public class WordCount {
     public void reduce(Text key, Iterable<IntWritable> values,
                        Context context
                        ) throws IOException, InterruptedException {
-      BigInteger sum = BigInteger.valueOf(0);
+      int sum = 0;
+      // BigInteger sum = BigInteger.valueOf(0);
       int count = 0;
-      System.out.println("di atas loop");
       for (IntWritable val : values) {
-        // sum += val.get();
-        sum.add(BigInteger.valueOf(val.get()));
+        sum += val.get();
+        // sum.add(BigInteger.valueOf(val.get()));
         count += 1;
-        System.out.println("dalem loop");
       }
-      System.out.println("abis loop");
-      // result.set(sum/count);
-      result.set(sum.divide(BigInteger.valueOf(count)).intValue());
-      context.write(key, new IntWritable(count));
+      result.set(sum/count);
+      // result.set(sum.divide(BigInteger.valueOf(count)).intValue());
+      // context.write(key, new IntWritable(count));
+      context.write(key, result);
     }
   }
 

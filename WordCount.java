@@ -45,7 +45,7 @@ public class WordCount {
       }
       // result.set(sum/count);
       result.set(sum.divide(BigInteger.valueOf(count)).intValue());
-      context.write(key, result);
+      context.write(key, count);
     }
   }
 

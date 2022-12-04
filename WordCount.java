@@ -35,11 +35,13 @@ public class WordCount {
     public void reduce(Text key, Iterable<IntWritable> values,
                        Context context
                        ) throws IOException, InterruptedException {
-      int sum = 0;
+      BigInteger sum = new BigInteger(0);
+      int count = 0;
       for (IntWritable val : values) {
         sum += val.get();
+        count++;
       }
-      result.set(sum);
+      result.set(sum/count);
       context.write(key, result);
     }
   }

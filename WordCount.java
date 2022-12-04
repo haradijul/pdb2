@@ -44,7 +44,7 @@ public class WordCount {
         // sum.add(BigInteger.valueOf(val.get()));
         count += 1;
       }
-      result.set(sum/count);
+      result.set(count);
       // result.set(sum.divide(BigInteger.valueOf(count)).intValue());
       // context.write(key, new IntWritable(count));
       context.write(key, result);

@@ -21,10 +21,9 @@ public class WordCount {
 
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
-      StringTokenizer itr = new StringTokenizer(value.toString());
-      while (itr.hasMoreTokens()) {
-        word.set(itr.nextToken());
-        context.write(word, one);
+      String[] words = value.toString().split(",");
+      if (words.length == 7 && !words[6].strip().equals("STATUS")){
+          context.write(new Text(words[6]), one);
       }
     }
   }

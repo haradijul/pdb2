@@ -41,7 +41,7 @@ public class WordCount {
       for (IntWritable val : values) {
         // sum += val.get();
         sum.add(BigInteger.valueOf(val.get()));
-        count++;
+        count += 1;
       }
       // result.set(sum/count);
       result.set(sum.divide(BigInteger.valueOf(count)).intValue());

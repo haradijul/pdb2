@@ -37,12 +37,16 @@ public class WordCount {
                        Context context
                        ) throws IOException, InterruptedException {
       // int sum = 0;
+      int count = 0;
+      if (values instanceof Collection) {
+       count = ((Collection<IntWritable>) values).size();
+      }
       BigInteger sum = BigInteger.valueOf(0);
       for (IntWritable val : values) {
         // sum += val.get();
         sum.add(BigInteger.valueOf(val.get()));
       }
-      result.set(values.length);
+      result.set(count);
       // result.set(sum.divide(BigInteger.valueOf(count)).intValue());
       // context.write(key, new IntWritable(count));
       context.write(key, result);

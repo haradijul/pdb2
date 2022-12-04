@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.StringTokenizer;
 import java.math.BigInteger;
+import java.lang.Math;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -47,7 +48,7 @@ public class WordCount {
       }
       // result.set(count);
       // result.set(sum.divide(BigInteger.valueOf(count)).intValue());
-      result.set(rol_avg);
+      result.set(Math.floor(rol_avg));
       context.write(key, result);
     }
   }

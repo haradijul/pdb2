@@ -23,7 +23,7 @@ public class WordCount {
                     ) throws IOException, InterruptedException {
       String[] words = value.toString().split(",");
       if (words.length == 7 && !words[6].strip().equals("STATUS")){
-          context.write(new Text(words[6]), new IntWritable(Integer.parseInt(words[1])), one);
+          context.write(new Text(words[6]), new IntWritable(Integer.parseInt(words[1])));
       }
     }
   }

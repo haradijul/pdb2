@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.util.StringTokenizer;
+import java.math.BigInteger;
+import java.lang.Math;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -24,7 +26,7 @@ public class WordCount {
                     ) throws IOException, InterruptedException {
       String[] words = value.toString().split(",");
       if (words.length == 7 && !words[6].strip().equals("STATUS")){
-          context.write(new Text(words[6]), one);
+          context.write(new Text(words[6]), new IntWritable(Integer.parseInt(words[1])));
       }
     }
   }
@@ -36,11 +38,13 @@ public class WordCount {
     public void reduce(Text key, Iterable<IntWritable> values,
                        Context context
                        ) throws IOException, InterruptedException {
-      int sum = 0;
+      int count = 0;
+      double rol_avg = 0.0;
       for (IntWritable val : values) {
-        sum += val.get();
+        count = count+1;
+        rol_avg += (val.get() - rol_avg)/(count);
       }
-      result.set(sum);
+      result.set(Math.floor(rol_avg));
       context.write(key, result);
     }
   }

@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.StringTokenizer;
 import java.math.BigInteger;
-import java.util.Collections;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -39,16 +38,14 @@ public class WordCount {
                        ) throws IOException, InterruptedException {
       // int sum = 0;
       int count = 0;
-      if (values instanceof Collection) {
-       count = ((Collection<IntWritable>) values).size();
-      }
       BigInteger sum = BigInteger.valueOf(0);
       for (IntWritable val : values) {
         // sum += val.get();
         sum.add(BigInteger.valueOf(val.get()));
+        count = count+1;
       }
-      result.set(count);
-      // result.set(sum.divide(BigInteger.valueOf(count)).intValue());
+      // result.set(count);
+      result.set(sum.divide(BigInteger.valueOf(count)).intValue());
       // context.write(key, new IntWritable(count));
       context.write(key, result);
     }
